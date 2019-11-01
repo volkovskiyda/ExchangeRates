@@ -1,0 +1,8 @@
+*.iml
+.gradle
+.idea
+build
+fastlane
+app/release
+gradle.properties
+local.properties
