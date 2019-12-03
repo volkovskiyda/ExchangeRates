@@ -1,6 +1,6 @@
 package com.gmail.volkovskiyda.exchangerates.main
 
-import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmail.volkovskiyda.exchangerates.R
 import com.gmail.volkovskiyda.exchangerates.common.Exchange
 import com.gmail.volkovskiyda.exchangerates.common.format
+import com.gmail.volkovskiyda.exchangerates.common.inflate
 import kotlinx.android.synthetic.main.item_exchange_rate.view.*
 
 class MainAdapter : PagedListAdapter<Exchange, MainAdapter.ExchangeRateVH>(diiCallback) {
@@ -22,7 +23,7 @@ class MainAdapter : PagedListAdapter<Exchange, MainAdapter.ExchangeRateVH>(diiCa
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExchangeRateVH =
-        ExchangeRateVH(parent)
+        ExchangeRateVH(parent.inflate(R.layout.item_exchange_rate))
 
     override fun onBindViewHolder(holder: ExchangeRateVH, position: Int) {
         val exchange = getItem(position)
@@ -37,11 +38,5 @@ class MainAdapter : PagedListAdapter<Exchange, MainAdapter.ExchangeRateVH>(diiCa
         }
     }
 
-    inner class ExchangeRateVH(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.item_exchange_rate,
-            parent,
-            false
-        )
-    )
+    inner class ExchangeRateVH(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

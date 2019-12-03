@@ -15,13 +15,14 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class MainBoundaryCallback(
+    private val initialDate: Date,
     private val api: ApiService,
     private val database: MainDatabase,
     private val scope: CoroutineScope
 ) : PagedList.BoundaryCallback<Exchange>() {
 
     override fun onZeroItemsLoaded() {
-        exchangeRates(Date())
+        exchangeRates(initialDate)
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: Exchange) {
@@ -30,7 +31,7 @@ class MainBoundaryCallback(
 
     override fun onItemAtFrontLoaded(itemAtFront: Exchange) {
         val newDate = itemAtFront.date.add(field = Calendar.DATE, amount = +1)
-        if (newDate.before(Date())) exchangeRates(newDate)
+        if (newDate.before(initialDate)) exchangeRates(newDate)
     }
 
     private fun exchangeRates(date: Date) =

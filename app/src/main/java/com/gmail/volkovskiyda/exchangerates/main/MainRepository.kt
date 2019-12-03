@@ -31,14 +31,8 @@ class MainRepository
         database.mainDao().exchangeRates(from)
             .map(::mapEntity)
             .toLiveData(
-                boundaryCallback = MainBoundaryCallback(api, database, scope),
+                boundaryCallback = MainBoundaryCallback(from, api, database, scope),
                 pageSize = 30
-//                config = PagedList.Config.Builder()
-//                    .setPageSize(30)
-//                    .setPrefetchDistance(10)
-//                    .setMaxSize(100)
-//                    .setEnablePlaceholders(true)
-//                    .build()
             )
 
     private fun mapEntity(entity: ExchangeEntity): Exchange = Exchange(
